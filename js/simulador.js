@@ -1,72 +1,82 @@
-// Simulador de Ahorro Acumulado
+// Simulador de Ahorro Acumulado con DOM y localStorage
 
-// Descripción: Permite calcular el ahorro acumulado mes a mes, sumando un monto
-// fijo durante varios meses, y muestra el historial en consola y alertas.
+// Cargar historial desde localStorage o inicializar vacío
+let historial = JSON.parse(localStorage.getItem("historialAhorro")) || [];
+let totalAcumulado = historial.length > 0 ? historial[historial.length - 1].total : 0;
 
-// Variables globales
-let historial = []; // Array para guardar el historial de ahorro por mes
-let totalAcumulado = 0; // Total acumulado entre simulaciones, inicializado en 0
+// Referencias a elementos del DOM
+const form = document.getElementById("formAhorro");
+const resultado = document.getElementById("resultado");
+const historialDiv = document.getElementById("historial");
+const btnLimpiar = document.getElementById("limpiarHistorial");
 
-// Solicita al usuario un número válido mediante prompt
-// Devuelve el número ingresado o null si cancela
-function solicitarNumero(mensaje) {
-  let valor;
-  do {
-    valor = prompt(mensaje);
-    if (valor === null) return null; // Permite cancelar la operación
-    valor = parseFloat(valor);
-  } while (isNaN(valor) || valor < 0); // Valida que sea un número positivo
-  return valor;
-}
-
-// Calcula el ahorro acumulado mes a mes
-// Parámetros: montoInicial (número), mensual (número), cantidadMeses (número)
-// Devuelve el total acumulado al finalizar los meses
-function calcularAhorro(montoInicial, mensual, cantidadMeses) {
-  let total = montoInicial;
-  historial = []; // Reinicia el historial para cada simulación
-  for (let i = 1; i <= cantidadMeses; i++) {
-    total += mensual;
-    historial.push(`Mes ${i}: $${total.toFixed(2)}`); // Guarda el total de cada mes
+// Función para actualizar el historial en el DOM
+function actualizarHistorialDOM() {
+  historialDiv.innerHTML = "<h2>Historial de ahorro</h2>";
+  if (historial.length === 0) {
+    historialDiv.innerHTML += "<p>No hay historial aún.</p>";
+    return;
   }
-  return total;
+  historialDiv.innerHTML += "<ul>" +
+    historial.map(item => `
+      <li>
+        <strong>${item.fecha}</strong>: $${item.total.toFixed(2)}
+        <details>
+          <summary>Ver detalle</summary>
+          <ul>${item.detalle.map(d => `<li>${d}</li>`).join("")}</ul>
+        </details>
+      </li>
+    `).join("") +
+    "</ul>";
 }
 
-// Muestra el historial de ahorro por mes en la consola
-function mostrarHistorial() {
-  console.log("\nHistorial de ahorro por mes:");
-  historial.forEach(mes => console.log(mes));
-}
+// Evento al enviar el formulario
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  const ahorroMensual = parseFloat(document.getElementById("ahorroMensual").value);
+  const meses = parseInt(document.getElementById("meses").value);
 
-// Muestra un saludo inicial al usuario por alert y consola
-function saludarUsuario() {
-  alert("Bienvenido/a al simulador de ahorro mensual");
-  console.log("Simulador iniciado...");
-}
+  if (isNaN(ahorroMensual) || ahorroMensual < 0 || isNaN(meses) || meses < 1) {
+    resultado.innerHTML = "<p style='color:red;'>Por favor, ingresa valores válidos.</p>";
+    return;
+  }
 
-// Función principal: ejecuta el flujo del simulador de ahorro
-function simuladorAhorro() {
-  saludarUsuario();
+  let total = totalAcumulado;
+  let detalle = [];
+  for (let i = 1; i <= meses; i++) {
+    total += ahorroMensual;
+    detalle.push(`Mes ${i}: $${total.toFixed(2)}`);
+  }
+  totalAcumulado = total;
 
-  alert(`Tu ahorro acumulado actual es: $${totalAcumulado.toFixed(2)}`);
+  // Guardar en historial y localStorage
+  const registro = {
+    fecha: new Date().toLocaleString(),
+    total: totalAcumulado,
+    detalle: [...detalle]
+  };
+  historial.push(registro);
+  localStorage.setItem("historialAhorro", JSON.stringify(historial));
 
-  // Solicita datos al usuario
-  const ahorroMensual = solicitarNumero("¿Cuánto dinero puedes ahorrar por mes?");
-  if (ahorroMensual === null) return;
+  // Mostrar resultados
+  resultado.innerHTML = `<h2>Resultado</h2>
+    <p>Ahorro total acumulado: <strong>$${totalAcumulado.toFixed(2)}</strong></p>
+    <h3>Detalle:</h3>
+    <ul>${detalle.map(m => `<li>${m}</li>`).join("")}</ul>`;
 
-  const meses = solicitarNumero("¿Durante cuántos meses vas a ahorrar?");
-  if (meses === null) return;
+  actualizarHistorialDOM();
+});
 
-  // Calcula el nuevo total acumulado y muestra resultados
-  const totalAhorrado = calcularAhorro(totalAcumulado, ahorroMensual, meses);
-  totalAcumulado = totalAhorrado;
+// Evento para limpiar historial
+btnLimpiar.addEventListener("click", function() {
+  if (confirm("¿Seguro que deseas borrar el historial?")) {
+    historial = [];
+    totalAcumulado = 0;
+    localStorage.removeItem("historialAhorro");
+    resultado.innerHTML = "";
+    actualizarHistorialDOM();
+  }
+});
 
-  mostrarHistorial();
-  alert(`Ahorro total acumulado: $${totalAcumulado.toFixed(2)}`);
-  console.log(`Ahorro total final: $${totalAcumulado.toFixed(2)}`);
-}
-
-// Bucle principal: permite repetir la simulación si el usuario lo desea
-do {
-  simuladorAhorro();
-} while (confirm("¿Deseas agregar más ahorro?"));
+// Mostrar historial al cargar la página
+actualizarHistorialDOM();

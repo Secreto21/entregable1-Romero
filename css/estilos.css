@@ -1,0 +1,134 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f4f8;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  max-width: 400px;
+  margin: 40px auto 20px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px #b0c4de33;
+  padding: 28px 18px 18px 18px;
+}
+
+h1 {
+  text-align: center;
+  color: #2a5298;
+  margin-bottom: 20px;
+}
+
+/* FORMULARIO MEJORADO */
+form fieldset {
+  border: 1px solid #b0c4de;
+  border-radius: 8px;
+  padding: 18px 14px 14px 14px;
+  margin-bottom: 18px;
+  background: #f7fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+form legend {
+  color: #2a5298;
+  font-weight: bold;
+  padding: 0 8px;
+  margin-bottom: 8px;
+  font-size: 1.1em;
+  letter-spacing: 0.5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+label {
+  color: #333;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #b0c4de;
+  border-radius: 4px;
+  font-size: 1em;
+  background: #f9fbfd;
+  transition: border-color 0.2s;
+}
+
+input[type="number"]:focus {
+  border-color: #2a5298;
+  outline: none;
+}
+
+button[type="submit"], #limpiarHistorial {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background: #2a5298;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover, #limpiarHistorial:hover {
+  background: #1e3c72;
+}
+
+#resultado, #historial {
+  background: #f7fafc;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px #b0c4de22;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+#resultado h2, #historial h2 {
+  color: #2a5298;
+  margin-top: 0;
+}
+
+ul {
+  padding-left: 18px;
+}
+
+details {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  background: #eaf1fb;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+details summary {
+  cursor: pointer;
+  color: #1e3c72;
+  font-weight: 500;
+}
+
+footer {
+  text-align: center;
+  padding: 12px 0;
+  background: #2a5298;
+  color: #fff;
+  font-size: 1em;
+  border-radius: 10px 10px 0 0;
+  margin-top: 24px;
+}
+
+@media (max-width: 500px) {
+  main {
+    max-width: 98vw;
+    padding: 10px 2vw 10px 2vw;
+  }
+}
