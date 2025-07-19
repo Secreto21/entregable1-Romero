@@ -9,25 +9,29 @@
 <body>
   <main>
     <h1>Simulador Financiero Básico</h1>
-    <!-- Solo el form mejorado -->
-  <form id="formAhorro" autocomplete="off">
-  <fieldset>
-    <legend>Datos para el cálculo</legend>
-    <div class="form-group">
-      <label for="ahorroMensual">Ahorro mensual:</label>
-      <input type="number" id="ahorroMensual" name="ahorroMensual" min="0" required>
-    </div>
-    <div class="form-group">
-      <label for="meses">Cantidad de meses:</label>
-      <input type="number" id="meses" name="meses" min="1" required>
-    </div>
-    <button type="submit">Calcular</button>
-  </fieldset>
-</form>
+    <form id="formAhorro" autocomplete="off">
+      <fieldset>
+        <legend>Datos para el cálculo</legend>
+        <div class="form-group">
+          <label for="ahorroMensual">Ahorro mensual:</label>
+          <input type="number" id="ahorroMensual" name="ahorroMensual" min="0" required value="10000">
+        </div>
+        <div class="form-group">
+          <label for="meses">Cantidad de meses:</label>
+          <input type="number" id="meses" name="meses" min="1" required value="12">
+        </div>
+        <button type="submit">Calcular</button>
+      </fieldset>
+    </form>
     <section id="resultado" aria-live="polite"></section>
     <section id="historial"></section>
     <button id="limpiarHistorial" type="button">Limpiar historial</button>
+    <section id="catalogo"></section>
   </main>
+  <footer>
+    <p>Proyecto Final - CoderHouse | Santiago</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/simulador.js"></script>
 </body>
 </html>

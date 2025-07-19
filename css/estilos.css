@@ -85,7 +85,7 @@ button[type="submit"]:hover, #limpiarHistorial:hover {
   background: #1e3c72;
 }
 
-#resultado, #historial {
+#resultado, #historial, #catalogo {
   background: #f7fafc;
   border-radius: 8px;
   box-shadow: 0 1px 4px #b0c4de22;
@@ -93,7 +93,7 @@ button[type="submit"]:hover, #limpiarHistorial:hover {
   margin-bottom: 12px;
 }
 
-#resultado h2, #historial h2 {
+#resultado h2, #historial h2, #catalogo h2 {
   color: #2a5298;
   margin-top: 0;
 }
