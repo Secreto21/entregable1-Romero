@@ -23,7 +23,7 @@ function actualizarHistorialDOM() {
       <li>
         <strong>${item.fecha}</strong>: $${item.total.toFixed(2)}
         <details>
-          <summary>Ver detalle</summary>
+          <summary>Ver detalle</summary>a
           <ul>${item.detalle.map(d => `<li>${d}</li>`).join("")}</ul>
         </details>
       </li>
