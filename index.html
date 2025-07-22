@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Ahorro</title>
+  <!-- Link al css -->
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
   <main>
+    <!-- Título principal -->
     <h1>Simulador Financiero Básico</h1>
+    
+    <!-- Formulario de ingreso de ahorro -->
     <form id="formAhorro" autocomplete="off">
       <fieldset>
         <legend>Datos para el cálculo</legend>
@@ -23,15 +27,28 @@
         <button type="submit">Calcular</button>
       </fieldset>
     </form>
+
+    <!-- Sección de resultados del cálculo -->
     <section id="resultado" aria-live="polite"></section>
+
+    <!-- Sección del historial de ahorro -->
     <section id="historial"></section>
+
+    <!-- Botón para limpiar el historial -->
     <button id="limpiarHistorial" type="button">Limpiar historial</button>
+
+    <!-- Catálogo de objetivos de ahorro -->
     <section id="catalogo"></section>
   </main>
+
+  <!-- Pie de página -->
   <footer>
     <p>Proyecto Final - CoderHouse | Santiago</p>
   </footer>
+
+  <!-- Librería externa para alertas modernas -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- link a simulador.js -->
   <script src="js/simulador.js"></script>
 </body>
 </html>

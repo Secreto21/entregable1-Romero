@@ -1,3 +1,6 @@
+/* ===========================
+   Estilos generales
+   =========================== */
 body {
   font-family: Arial, sans-serif;
   background: #f2f4f8;
@@ -5,6 +8,9 @@ body {
   padding: 0;
 }
 
+/* ===========================
+   Contenedor principal
+   =========================== */
 main {
   max-width: 400px;
   margin: 40px auto 20px auto;
@@ -14,13 +20,18 @@ main {
   padding: 28px 18px 18px 18px;
 }
 
+/* ===========================
+   Título principal
+   =========================== */
 h1 {
   text-align: center;
   color: #2a5298;
   margin-bottom: 20px;
 }
 
-/* FORMULARIO MEJORADO */
+/* ===========================
+   Formulario de ahorro
+   =========================== */
 form fieldset {
   border: 1px solid #b0c4de;
   border-radius: 8px;
@@ -68,6 +79,9 @@ input[type="number"]:focus {
   outline: none;
 }
 
+/* ===========================
+   Botones principales
+   =========================== */
 button[type="submit"], #limpiarHistorial {
   width: 100%;
   padding: 10px;
@@ -85,6 +99,9 @@ button[type="submit"]:hover, #limpiarHistorial:hover {
   background: #1e3c72;
 }
 
+/* ===========================
+   Secciones de resultados, historial y catálogo
+   =========================== */
 #resultado, #historial, #catalogo {
   background: #f7fafc;
   border-radius: 8px;
@@ -102,6 +119,9 @@ ul {
   padding-left: 18px;
 }
 
+/* ===========================
+   Detalles expandibles
+   =========================== */
 details {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -116,6 +136,9 @@ details summary {
   font-weight: 500;
 }
 
+/* ===========================
+   Pie de página
+   =========================== */
 footer {
   text-align: center;
   padding: 12px 0;
@@ -126,6 +149,9 @@ footer {
   margin-top: 24px;
 }
 
+/* ===========================
+   Responsive para móviles
+   =========================== */
 @media (max-width: 500px) {
   main {
     max-width: 98vw;

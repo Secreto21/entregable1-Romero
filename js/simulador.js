@@ -1,4 +1,4 @@
-// Simulador de Ahorro Acumulado con DOM y localStorage
+// Simulador de Ahorro Acumulado con DOM, localStorage y catálogo dinámico
 
 // Cargar historial desde localStorage o inicializar vacío
 let historial = JSON.parse(localStorage.getItem("historialAhorro")) || [];
@@ -11,7 +11,7 @@ const historialDiv = document.getElementById("historial");
 const btnLimpiar = document.getElementById("limpiarHistorial");
 const catalogoDiv = document.getElementById("catalogo");
 
-// Función para actualizar el historial en el DOM
+// Actualiza el historial en el DOM
 function actualizarHistorialDOM() {
   historialDiv.innerHTML = "<h2>Historial de ahorro</h2>";
   if (historial.length === 0) {
@@ -31,17 +31,19 @@ function actualizarHistorialDOM() {
     "</ul>";
 }
 
-// Evento al enviar el formulario
+// Evento: Enviar formulario de ahorro
 form.addEventListener("submit", function(e) {
   e.preventDefault();
   const ahorroMensual = parseFloat(document.getElementById("ahorroMensual").value);
   const meses = parseInt(document.getElementById("meses").value);
 
+  // Validación de datos
   if (isNaN(ahorroMensual) || ahorroMensual < 0 || isNaN(meses) || meses < 1) {
     resultado.innerHTML = "<p style='color:red;'>Por favor, ingresa valores válidos.</p>";
     return;
   }
 
+  // Calcular nuevo total y detalle de ahorro
   let total = totalAcumulado;
   let detalle = [];
   for (let i = 1; i <= meses; i++) {
@@ -59,7 +61,7 @@ form.addEventListener("submit", function(e) {
   historial.push(registro);
   localStorage.setItem("historialAhorro", JSON.stringify(historial));
 
-  // Mostrar resultados
+  // Mostrar resultados y actualizar historial y catálogo
   resultado.innerHTML = `<h2>Resultado</h2>
     <p>Ahorro total acumulado: <strong>$${totalAcumulado.toFixed(2)}</strong></p>
     <h3>Detalle:</h3>
@@ -69,7 +71,7 @@ form.addEventListener("submit", function(e) {
   cargarObjetivos(); // Actualiza el catálogo de objetivos
 });
 
-// Evento para limpiar historial con SweetAlert2
+// Evento: Limpiar historial con confirmación SweetAlert2
 btnLimpiar.addEventListener("click", function() {
   Swal.fire({
     title: "¿Seguro que deseas borrar el historial?",
@@ -96,7 +98,7 @@ actualizarHistorialDOM();
 
 // ----------- FEATURE EXTRA: Catálogo de objetivos de ahorro -----------
 
-// Cargar objetivos desde JSON simulado
+// Cargar objetivos desde JSON simulado y renderizarlos
 async function cargarObjetivos() {
   catalogoDiv.innerHTML = "<h2>Objetivos de ahorro</h2><p>Cargando...</p>";
   try {
@@ -108,7 +110,7 @@ async function cargarObjetivos() {
   }
 }
 
-// Función para renderizar los objetivos
+// Renderiza los objetivos y asigna eventos a los botones
 function renderizarObjetivos(objetivos) {
   catalogoDiv.innerHTML = "<h2>Objetivos de ahorro</h2><ul>" +
     objetivos.map(obj => {
@@ -123,8 +125,9 @@ function renderizarObjetivos(objetivos) {
     }).join("") +
     "</ul>";
 
-  // Delegación de eventos para manejar clics en los botones
+  // Delegación de eventos para los botones del catálogo
   catalogoDiv.addEventListener('click', function(e) {
+    // Ver progreso de objetivo
     if (e.target.classList.contains('btn-objetivo')) {
       const monto = parseInt(e.target.dataset.monto);
       const nombre = e.target.dataset.nombre;
@@ -138,6 +141,7 @@ function renderizarObjetivos(objetivos) {
       });
     }
 
+    // Comprar objetivo si hay suficiente ahorro
     if (e.target.classList.contains('btn-comprar')) {
       const monto = parseInt(e.target.dataset.monto);
       const nombre = e.target.dataset.nombre;
